@@ -36,4 +36,17 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function ads(){
+        return $this->hasMany('App\Advertisement');
+    }
+
+    public function sellers(){
+        return $this->hasMany('App\Order', 'seller_id', 'id');
+    }
+
+    public function buyers(){
+        return $this->hasMany('App\Order', 'buyer_id', 'id');
+    }
+
 }
