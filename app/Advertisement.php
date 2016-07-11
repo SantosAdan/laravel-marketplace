@@ -19,6 +19,6 @@ class Advertisement extends Model
     }
 
     public function product(){
-        returnn $this->hasOne('App\Product');
+        return $this->hasOne('App\Product');
     }
 }
