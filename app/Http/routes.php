@@ -19,6 +19,21 @@ Route::get('/logout', 'Auth\AuthController@getLogout');
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 
-Route::get('/', function () {
-    return view('layouts.master');
+Route::group(['middleware' => 'auth' ], function () {
+    Route::get('/', function () {
+        return view('layouts.master');
+    });
+
+    Route::get('profile', ['as' => 'user.edit', 'uses' => 'UserController@edit']);
+    Route::put('profile', ['as' => 'user.update', 'uses' => 'UserController@update']);
 });
+
+// Images Route
+Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
+    $path = storage_path() . '/app/' . $folder . '/' . $image;
+    $img = Image::make($path)->resize(null, $size, function ($constraint) {
+        $constraint->aspectRatio();
+    });
+
+    return $img->response();
+}]);

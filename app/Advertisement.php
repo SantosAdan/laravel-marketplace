@@ -9,16 +9,27 @@ class Advertisement extends Model
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id',
+        'product_id',
+        'title',
+        'description'
+    ];
 
-    public function user(){
-        return $this->belongsTo('App\User');
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
-    public function product(){
-        returnn $this->hasOne('App\Product');
+    public function product()
+    {
+        return $this->hasOne(Product::class);
     }
 }
