@@ -28,7 +28,13 @@
           </ul> --}}
         </li>
         <li class="treeview">
-          <a href="#">
+          <a href="{{route('index_anuncio')}}">
+            <i class="fa fa-bullhorn"></i>
+            <span>Anúncios</span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="">
             <i class="fa fa-files-o"></i>
             <span>Produtos</span>
           </a>

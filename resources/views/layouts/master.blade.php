@@ -50,8 +50,13 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    @yield('content')
-    <!-- /.content -->
+
+    <section class="content-header">
+      @section('header_title')
+      @show
+    </section>
+      @yield('content')
+
   </div>
   <!-- /.content-wrapper -->
   @include('layouts.partials.footer')
@@ -64,10 +69,6 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
-<!-- Styles -->
-  @section('specific_scripts')
-  @show
 
 <!-- jQuery 2.2.3 -->
 <script src="/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -100,11 +101,16 @@
 <script src="/adminlte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="/adminlte/plugins/fastclick/fastclick.js"></script>
-<!-- /adminlte App -->
+
+<!-- AdminLTE App -->
 <script src="/adminlte/dist/js/app.min.js"></script>
-<!-- /adminlte dashboard demo (This is only for demo purposes) -->
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/adminlte/dist/js/pages/dashboard.js"></script>
-<!-- /adminlte for demo purposes -->
+<!-- AdminLTE for demo purposes -->
 <script src="/adminlte/dist/js/demo.js"></script>
+
+@section('specific_scripts')
+@show
+
 </body>
 </html>

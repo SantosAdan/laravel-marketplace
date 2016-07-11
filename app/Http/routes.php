@@ -28,6 +28,15 @@ Route::group(['middleware' => 'auth' ], function () {
     Route::put('profile', ['as' => 'user.update', 'uses' => 'UserController@update']);
 });
 
+Route::group(['prefix' => 'anuncios'],function(){
+    Route::get('/', ['as' => 'index_anuncio', 'uses' => 'AdvertisementController@index']);
+    Route::get('/criar',['as'=>'criar_anuncio', 'uses'=>'AdvertisementController@create']);
+    Route::post('/cadastrar',['as'=>'cadastrar_anuncio', 'uses'=>'AdvertisementController@store']);
+    Route::get('/{id}/editar',['as'=>'editar_anuncio', 'uses'=>'AdvertisementController@edit']);
+    Route::put('/{id}/atualizar', ['as'=>'atualizar_anuncio', 'uses'=>'AdvertisementController@update']);
+    Route::post('/{id}/deletar', ['as' => 'deletar_anuncio', 'uses' => 'AdvertisementController@destroy']);
+});
+
 // Images Route
 Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
     $path = storage_path() . '/app/' . $folder . '/' . $image;
