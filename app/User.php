@@ -63,9 +63,9 @@ class User extends Model implements AuthenticatableContract,
     }
 
     // Relationships
-    public function advertisement()
+    public function products()
     {
-        return $this->hasMany(Advertisement::class);
+        return $this->hasMany(Product::class);
     }
 
     public function orders()

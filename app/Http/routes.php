@@ -28,13 +28,13 @@ Route::group(['middleware' => 'auth' ], function () {
     Route::put('profile', ['as' => 'user.update', 'uses' => 'UserController@update']);
 });
 
-Route::group(['prefix' => 'anuncios'],function(){
-    Route::get('/', ['as' => 'index_anuncio', 'uses' => 'AdvertisementController@index']);
-    Route::get('/criar',['as'=>'criar_anuncio', 'uses'=>'AdvertisementController@create']);
-    Route::post('/cadastrar',['as'=>'cadastrar_anuncio', 'uses'=>'AdvertisementController@store']);
-    Route::get('/{id}/editar',['as'=>'editar_anuncio', 'uses'=>'AdvertisementController@edit']);
-    Route::put('/{id}/atualizar', ['as'=>'atualizar_anuncio', 'uses'=>'AdvertisementController@update']);
-    Route::post('/{id}/deletar', ['as' => 'deletar_anuncio', 'uses' => 'AdvertisementController@destroy']);
+Route::group(['prefix' => 'productos'], function(){
+    Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
+    Route::get('/criar',['as'=>'product.create', 'uses'=>'ProductController@create']);
+    Route::post('/cadastrar',['as'=>'product.store', 'uses'=>'ProductController@store']);
+    Route::get('/{id}/editar',['as'=>'product.edit', 'uses'=>'ProductController@edit']);
+    Route::put('/{id}/atualizar', ['as'=>'product.update', 'uses'=>'ProductController@update']);
+    Route::post('/{id}/deletar', ['as' => 'product.delete', 'uses' => 'ProductController@destroy']);
 });
 
 // Images Route
