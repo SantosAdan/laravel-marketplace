@@ -26,23 +26,23 @@ Route::group(['middleware' => 'auth' ], function () {
 
     Route::get('profile', ['as' => 'user.edit', 'uses' => 'UserController@edit']);
     Route::put('profile', ['as' => 'user.update', 'uses' => 'UserController@update']);
-});
 
-Route::group(['prefix' => 'productos'], function(){
-    Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
-    Route::get('/criar',['as'=>'product.create', 'uses'=>'ProductController@create']);
-    Route::post('/cadastrar',['as'=>'product.store', 'uses'=>'ProductController@store']);
-    Route::get('/{id}/editar',['as'=>'product.edit', 'uses'=>'ProductController@edit']);
-    Route::put('/{id}/atualizar', ['as'=>'product.update', 'uses'=>'ProductController@update']);
-    Route::post('/{id}/deletar', ['as' => 'product.delete', 'uses' => 'ProductController@destroy']);
-});
-
-// Images Route
-Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
-    $path = storage_path() . '/app/' . $folder . '/' . $image;
-    $img = Image::make($path)->resize(null, $size, function ($constraint) {
-        $constraint->aspectRatio();
+    Route::group(['prefix' => 'produtos'], function(){
+        Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
+        Route::get('/criar',['as'=>'product.create', 'uses'=>'ProductController@create']);
+        Route::post('/cadastrar',['as'=>'product.store', 'uses'=>'ProductController@store']);
+        Route::get('/{id}/editar',['as'=>'product.edit', 'uses'=>'ProductController@edit']);
+        Route::put('/{id}/atualizar', ['as'=>'product.update', 'uses'=>'ProductController@update']);
+        Route::post('/{id}/deletar', ['as' => 'product.delete', 'uses' => 'ProductController@destroy']);
     });
 
-    return $img->response();
-}]);
+    // Images Route
+    Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
+        $path = storage_path() . '/app/' . $folder . '/' . $image;
+        $img = Image::make($path)->resize(null, $size, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
+        return $img->response();
+    }]);
+});

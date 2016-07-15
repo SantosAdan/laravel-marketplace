@@ -3,7 +3,7 @@
     <div class="row">
         <label class="col-xs-3 control-label">Categoria<sup style="color: red;">*</sup></label>
         <div class="col-xs-7">
-            {!! Form::select('category_id', [1 => 'Categoria Exemplo', 2 => 'Categoria Exemplo 2'], null, ['class' => 'form-control input-sm', 'placeholder' => 'Selecionar Categoria']) !!}
+            {!! Form::select('category_id', $categories->lists('name', 'id'), null, ['class' => 'form-control input-sm', 'placeholder' => 'Selecionar Categoria']) !!}
         </div>
     </div>
 </div>

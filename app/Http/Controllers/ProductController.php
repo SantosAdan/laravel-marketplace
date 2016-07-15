@@ -2,9 +2,11 @@
 
 namespace Marketplace\Http\Controllers;
 
+use Marketplace\Product;
+use Marketplace\Category;
 use Illuminate\Http\Request;
-
 use Marketplace\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Marketplace\Http\Controllers\Controller;
 
 class ProductController extends Controller
@@ -16,7 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view ('products.index');
+        $products = Product::where('user_id', Auth::user()->id)->with(['photos', 'category'])->paginate(5);
+
+        return view ('products.index', compact('products'));
     }
 
     /**
@@ -26,7 +30,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -37,7 +43,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $inputs = $request->all();
+        $inputs['user_id'] = Auth::user()->id;
+        $product = Product::create($inputs);
+
+        return redirect()->route('products.index', compact('product'));
+        // return view('products.photos.upload', compact('product'));
     }
 
     /**
