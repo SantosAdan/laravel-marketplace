@@ -14,14 +14,14 @@ class Order extends Model
     protected $fillable = [];
 
     public function buyer(){
-        return $this->belongsTo('App\User', 'id', 'buyer_id');
+        return $this->belongsTo('Marketplace\User', 'id', 'buyer_id');
     }
 
     public function seller(){
-        return $this->belongsTo('App\User', 'id', 'seller_id');
+        return $this->belongsTo('Marketplace\User', 'id', 'seller_id');
     }
 
     public function products(){
-        return $this->hasOne('App\Product');
+        return $this->hasOne('Marketplace\Product');
     }
 }

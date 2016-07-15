@@ -28,7 +28,7 @@
           </ul> --}}
         </li>
         <li class="treeview">
-          <a href="{{route('product.index')}}">
+          <a href="{{route('products.index')}}">
             <i class="fa fa-bullhorn"></i>
             <span>Produtos</span>
           </a>

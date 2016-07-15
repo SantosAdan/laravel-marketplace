@@ -2,7 +2,7 @@
 
 @section('header_title')
 <h1>
-  <i class="fa fa-bullhorn"></i> Meus Anúncios
+  <i class="fa fa-bullhorn"></i> Meus Produtos
 </h1>
 <ol class="breadcrumb">
   <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -13,11 +13,6 @@
 @section('content')
 <div class="container-fluid">
 
-  <section class="row" style="margin-top: 2%; margin-left: 1%;">
-    <a href="{{route('product.create')}}" class="btn btn-xs btn-flat btn-primary pull-left">
-        <i class="fa fa-plus"></i> <b>Anunciar Produto</b>
-    </a>
-  </section>
 
   <section class="row" style="margin-top: 2%; margin-right: 1%;">
     @foreach($products as $product)
@@ -25,8 +20,9 @@
         <a href="#">
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h3 class="box-title">{{ $product->name }}</h3>
+              <a href="{{route('products.show', [$product->id])}}"><h3 class="box-title">{{ $product->name }}</h3></a>
             </div>
+
             <div class="box-body no-padding" style="
                         background-image: url({{ route('images', [$product->photos->first()->path, 170]) }});
                         background-size: cover;
