@@ -38,6 +38,21 @@
     </div>
 </div>
 
+<!-- Photo Form Input -->
+<div class="form-group @if ($errors->has('photo')) has-error @endif">
+    <label class="col-md-3 control-label">Imagem<sup style="color: red;">*</sup></label>
+    <div class="col-md-3">
+        {!! Form::file('photo', null, ['class' => 'form-control']) !!}
+    </div>
+
+    <!-- Shows current image when editing -->
+    <div class="col-sm-4">
+        @if(strpos(Request::url(), 'editar'))
+            <img src="{{ route('images', [$product->photo, 40]) }}">
+        @endif
+    </div><br><br>
+</div>
+
 <!-- Description Form Input -->
 <div class="form-group">
     <div class="row">
