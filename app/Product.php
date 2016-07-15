@@ -30,7 +30,17 @@ class Product extends Model
     }
 
     public function order(){
-        return $this->belongsTo('App\Order');
+        return $this->belongsTo(Order::class);
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
 }
