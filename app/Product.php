@@ -11,10 +11,22 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'category_id',
+        'user_id',
+        'name',
+        'price',
+        'quantity',
+        'description'
+    ];
 
-    public function ads(){
-        return $this->belongsTo('App\Advertisement');
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     public function order(){

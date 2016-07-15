@@ -1,16 +1,6 @@
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
       <!-- search form -->
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
@@ -38,14 +28,8 @@
           </ul> --}}
         </li>
         <li class="treeview">
-          <a href="{{route('index_anuncio')}}">
+          <a href="{{route('product.index')}}">
             <i class="fa fa-bullhorn"></i>
-            <span>Anúncios</span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="">
-            <i class="fa fa-files-o"></i>
             <span>Produtos</span>
           </a>
         </li>

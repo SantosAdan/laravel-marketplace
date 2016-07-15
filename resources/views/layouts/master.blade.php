@@ -50,11 +50,13 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+
     <section class="content-header">
       @section('header_title')
       @show
     </section>
       @yield('content')
+
   </div>
   <!-- /.content-wrapper -->
   @include('layouts.partials.footer')
@@ -99,6 +101,7 @@
 <script src="/adminlte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="/adminlte/plugins/fastclick/fastclick.js"></script>
+
 <!-- AdminLTE App -->
 <script src="/adminlte/dist/js/app.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

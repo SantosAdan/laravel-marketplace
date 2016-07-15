@@ -2,44 +2,14 @@
 
 namespace Marketplace\Http\Controllers;
 
+use Marketplace\User;
 use Illuminate\Http\Request;
-
 use Marketplace\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Marketplace\Http\Controllers\Controller;
 
-class AdvertisementController extends Controller
+class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view ('advertisement.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('advertisement.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -53,25 +23,40 @@ class AdvertisementController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $user = Auth::user();
+
+        return view('users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        if($request->hasFile('photo_url')) {
+            $file = $request->file('photo_url');
+            $user->photo_url = $user->uploadImage($file, 'users/');
+        }
+
+        if($request['password'])
+            $user->password = bcrypt($request['password']);
+
+        $inputs = $request->except('password', 'password_confirmation');
+
+        $user->fill($inputs);
+        $user->save();
+
+        return redirect()->route('user.edit');
     }
 
     /**

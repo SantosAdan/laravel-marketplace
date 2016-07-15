@@ -4,6 +4,7 @@ namespace Marketplace;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Marketplace\Traits\ImageUploadTrait;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -15,6 +16,7 @@ class User extends Model implements AuthenticatableContract,
                                     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
+    use ImageUploadTrait;
 
     /**
      * The database table used by the model.
@@ -25,10 +27,24 @@ class User extends Model implements AuthenticatableContract,
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'street',
+        'street_number',
+        'district',
+        'city',
+        'state',
+        'zipcode',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -37,16 +53,24 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function ads(){
-        return $this->hasMany('App\Advertisement');
+    /**
+     * Set the default photo.
+     * @param $photo
+     */
+    public function setDefaultPhoto($photo)
+    {
+        $this->attributes[$photo] = 'users/default.jpg';
     }
 
-    public function sellers(){
-        return $this->hasMany('App\Order', 'seller_id', 'id');
+    // Relationships
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 
-    public function buyers(){
-        return $this->hasMany('App\Order', 'buyer_id', 'id');
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'buyer_id', 'id');
     }
 
 }

@@ -19,16 +19,30 @@ Route::get('/logout', 'Auth\AuthController@getLogout');
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 
-Route::get('/', function () {
-    return view('layouts.master');
+Route::group(['middleware' => 'auth' ], function () {
+    Route::get('/', function () {
+        return view('layouts.master');
+    });
+
+    Route::get('profile', ['as' => 'user.edit', 'uses' => 'UserController@edit']);
+    Route::put('profile', ['as' => 'user.update', 'uses' => 'UserController@update']);
 });
 
-
-Route::group(['prefix' => 'anuncios'],function(){
-    Route::get('/', ['as' => 'index_anuncio', 'uses' => 'AdvertisementController@index']);
-    Route::get('/criar',['as'=>'criar_anuncio', 'uses'=>'AdvertisementController@create']);
-    Route::post('/cadastrar',['as'=>'cadastrar_anuncio', 'uses'=>'AdvertisementController@store']);
-    Route::get('/{id}/editar',['as'=>'editar_anuncio', 'uses'=>'AdvertisementController@edit']);
-    Route::put('/{id}/atualizar', ['as'=>'atualizar_anuncio', 'uses'=>'AdvertisementController@update']);
-    Route::post('/{id}/deletar', ['as' => 'deletar_anuncio', 'uses' => 'AdvertisementController@destroy']);
+Route::group(['prefix' => 'productos'], function(){
+    Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
+    Route::get('/criar',['as'=>'product.create', 'uses'=>'ProductController@create']);
+    Route::post('/cadastrar',['as'=>'product.store', 'uses'=>'ProductController@store']);
+    Route::get('/{id}/editar',['as'=>'product.edit', 'uses'=>'ProductController@edit']);
+    Route::put('/{id}/atualizar', ['as'=>'product.update', 'uses'=>'ProductController@update']);
+    Route::post('/{id}/deletar', ['as' => 'product.delete', 'uses' => 'ProductController@destroy']);
 });
+
+// Images Route
+Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
+    $path = storage_path() . '/app/' . $folder . '/' . $image;
+    $img = Image::make($path)->resize(null, $size, function ($constraint) {
+        $constraint->aspectRatio();
+    });
+
+    return $img->response();
+}]);
