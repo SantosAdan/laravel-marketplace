@@ -21,8 +21,15 @@
           <div class="box box-solid">
             <div class="box-header with-border">
               <a href="{{route('products.show', [$product->id])}}"><h3 class="box-title">{{ $product->name }}</h3></a>
+              <div class="widget-icons pull-right">
+              <a href="{{route('products.edit', [$product->id])}}">
+                  <i class="fa fa-edit"></i>
+              </a>
+              <a href="#" class="delete-product" data-product-id="{{$product->id}}" data-token="{{ csrf_token() }}">
+                  <i class="fa fa-remove"></i>
+              </a>
             </div>
-
+            </div>
             <div class="box-body no-padding" style="
                         background-image: url({{ route('images', [$product->photos->first()->path, 170]) }});
                         background-size: cover;

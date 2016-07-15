@@ -104,8 +104,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+        $categories = Category::all();
 
-        return view ('products.edit')->with(compact('products'));
+        return view ('products.edit')->with(compact('product', 'categories'));
     }
 
     /**
@@ -120,7 +121,9 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->fill($request->all());
 
-        return redirect()->route('index_marca');
+        $product->save();
+
+        return redirect()->route('products.user');
     }
 
     /**
