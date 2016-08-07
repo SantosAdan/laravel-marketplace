@@ -96,7 +96,7 @@
           --}}
 
           <li>
-            <a href="{{ route('product.create') }}">Vender</a>
+            <a href="{{ route('products.create') }}">Vender</a>
           </li>
 
           <!-- Notifications: style can be found in dropdown.less -->

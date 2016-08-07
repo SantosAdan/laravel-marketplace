@@ -1,14 +1,9 @@
 @extends('layouts.master')
 
 @section('header_title')
-<div class="container">
 <h1>
-  <i class="fa fa-bullhorn"></i> Meus Anúncios
+  <i class="fa fa-bullhorn"></i> Meus Produtos
 </h1>
-<a href="{{route('products.create')}}" class="btn btn-xs btn-flat btn-primary pull-left">
-    <i class="fa fa-plus"></i> <b>Anunciar Produto</b>
-</a>
-</div>
 <ol class="breadcrumb">
   <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
   <li class="active">Anúncios</li>
@@ -18,6 +13,7 @@
 @section('content')
 <div class="container-fluid">
 
+
   <section class="row" style="margin-top: 2%; margin-right: 1%;">
     @foreach($products as $product)
     <div class="col-md-4">
@@ -25,8 +21,15 @@
           <div class="box box-solid">
             <div class="box-header with-border">
               <a href="{{route('products.show', [$product->id])}}"><h3 class="box-title">{{ $product->name }}</h3></a>
+              <div class="widget-icons pull-right">
+              <a href="{{route('products.edit', [$product->id])}}">
+                  <i class="fa fa-edit"></i>
+              </a>
+              <a href="#" class="delete-product" data-product-id="{{$product->id}}" data-token="{{ csrf_token() }}">
+                  <i class="fa fa-remove"></i>
+              </a>
             </div>
-
+            </div>
             <div class="box-body no-padding" style="
                         background-image: url({{ route('images', [$product->photos->first()->path, 170]) }});
                         background-size: cover;

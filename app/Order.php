@@ -34,5 +34,6 @@ class Order extends Model
     public function getQuantity()
     {
         return $this->total / $this->product->price;
+
     }
 }

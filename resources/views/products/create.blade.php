@@ -16,7 +16,7 @@
     <div class="container-fluid">
       <div class="row">
           <div class="col-xs-12">
-              {!! Form::model(new \Marketplace\Product, ['route' => 'product.store', 'files' => true,
+              {!! Form::model(new \Marketplace\Product, ['route' => 'products.store', 'files' => true,
                   'class' => 'form-horizontal', 'id' => 'product-create']) !!}
               @include('products/partials/_form')
               {!! Form::close() !!}

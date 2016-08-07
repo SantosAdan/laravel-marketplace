@@ -22,16 +22,36 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-{{--           <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul> --}}
         </li>
-        <li class="treeview">
-          <a href="{{route('product.index')}}">
-            <i class="fa fa-bullhorn"></i>
-            <span>Produtos</span>
+        <li class="treeview strpos(Request::url(), 'produtos') ? 'active' : ''">
+          <a href="#">
+            <i class="fa fa-bullhorn"></i> <span>Produtos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i>Todos</a></li>
+            <li><a href="{{route('products.user')}}"><i class="fa fa-circle-o"></i>Meus</a></li>
+            <li>
+              <a href="#"><i class="fa fa-circle-o"></i> Categorias
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('products.bycategory',['Eletrônicos'])}}"><i class="fa fa-circle-o"></i><span class="trunc"> Eletrônicos</span></a></li>
+                <li><a href="{{route('products.bycategory',['Esportes'])}}"><i class="fa fa-circle-o"></i><span class="trunc"> Esportes</span></a></li>
+                <li><a href="{{route('products.bycategory',['Vestuário'])}}"><i class="fa fa-circle-o"></i><span class="trunc"> Vestuário</span></a></li>
+                <li><a href="{{route('products.bycategory',['Computadores e Smartphones'])}}"><i class="fa fa-circle-o"></i><span class="trunc"> Computadores e Smartphones</span></a></li>
+                <li><a href="{{route('products.bycategory',['Arte e Artesanato'])}}"><i class="fa fa-circle-o"></i><span class="trunc"> Arte e Artesanato</span></a></li>
+                <li><a href="{{route('products.bycategory',['Brinquedos'])}}"><i class="fa fa-circle-o"></i><span class="trunc"> Brinquedos</span></a></li>
+                <li><a href="{{route('products.bycategory',['Livros, Revistas e Quadrinhos'])}}"><i class="fa fa-circle-o"></i><span class="trunc"> Livros, Revistas e Quadrinhos</span></a></li>
+                <li><a href="{{route('products.bycategory',['Colecionáveis'])}}"><i class="fa fa-circle-o"></i><span class="trunc"> Colecionáveis</span></a></li>
+                <li><a href="{{route('products.bycategory',['Outros'])}}"><i class="fa fa-circle-o"></i><span class="trunc"> Outros</span></a></li>
+              </ul>
+            </li>
+          </ul>
         </li>
         <li class="{{ strpos(Request::url(), 'pedidos') ? 'active' : '' }}">
           <a href="{{ route('orders.index') }}">
