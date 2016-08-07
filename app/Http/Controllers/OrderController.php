@@ -2,14 +2,14 @@
 
 namespace Marketplace\Http\Controllers;
 
+use Marketplace\Order;
 use Marketplace\Product;
-use Marketplace\Category;
 use Illuminate\Http\Request;
 use Marketplace\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Marketplace\Http\Controllers\Controller;
 
-class ProductController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('user_id', Auth::user()->id)->with(['photos', 'category'])->paginate(5);
+        $orders = Order::with('buyer', 'seller')->where('buyer_id', Auth::user()->id)->get();
 
-        return view ('products.index-client', compact('products'));
+        return view('orders.index', compact('orders'));
     }
 
     /**
@@ -28,11 +28,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($productId)
     {
-        $categories = Category::all();
+        $product = Product::findOrFail($productId);
+        $quantity = 2;
 
-        return view('products.create', compact('categories'));
+        return view('orders.create', compact('product', 'quantity'));
     }
 
     /**
@@ -41,14 +42,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $productId)
     {
         $inputs = $request->all();
-        $inputs['user_id'] = Auth::user()->id;
-        $product = Product::create($inputs);
+        $product = Product::findOrFail($productId);
+        $inputs['product_id'] = $product->id;
+        $inputs['seller_id'] = $product->user->id;
+        $inputs['buyer_id'] = Auth::user()->id;
+        $inputs['total'] = $product->price * intval($request['quantity']);
+        $inputs['status'] = 'Aguardando Pagamento';
 
-        return redirect()->route('product.index', compact('product'));
-        // return view('products.photos.upload', compact('product'));
+        $order = Order::create($inputs);
+
+        return redirect()->route('product.index');
     }
 
     /**
@@ -57,9 +63,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($orderId)
     {
-        //
+        $order = Order::findOrFail($orderId);
+
+        return view('orders.show', compact('order'));
     }
 
     /**
@@ -81,17 +89,6 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
     {
         //
     }

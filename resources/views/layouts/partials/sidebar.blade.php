@@ -33,9 +33,9 @@
             <span>Produtos</span>
           </a>
         </li>
-        <li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-th"></i> <span>Pedidos</span>
+        <li class="{{ strpos(Request::url(), 'pedidos') ? 'active' : '' }}">
+          <a href="{{ route('orders.index') }}">
+            <i class="fa fa-shopping-cart fa-fw"></i> <span>Meus Pedidos</span>
           </a>
         </li>
         <li class="treeview">

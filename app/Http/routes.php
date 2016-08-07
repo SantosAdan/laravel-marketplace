@@ -36,6 +36,13 @@ Route::group(['middleware' => 'auth' ], function () {
         Route::post('/{id}/deletar', ['as' => 'product.delete', 'uses' => 'ProductController@destroy']);
     });
 
+    Route::group(['prefix' => 'pedidos'], function () {
+        Route::get('/', ['as' => 'orders.index', 'uses' => 'OrderController@index']);
+        Route::get('{orderId}', ['as' => 'orders.show', 'uses' => 'OrderController@show']);
+        Route::get('{productId}/criar', ['as' => 'orders.create', 'uses' => 'OrderController@create']);
+        Route::post('{productId}/salvar', ['as' => 'orders.store', 'uses' => 'OrderController@store']);
+    });
+
     // Images Route
     Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
         $path = storage_path() . '/app/' . $folder . '/' . $image;

@@ -23,6 +23,10 @@ class CreateOrdersTable extends Migration
             $table->foreign('buyer_id')->references('id')->on('users')
                         ->onUpdate('cascade')->onDelete('cascade');
 
+            $table->integer('product_id')->index()->unsigned();
+            $table->foreign('product_id')->references('id')->on('products')
+                        ->onUpdate('cascade')->onDelete('cascade');
+
             $table->double('total', 15.2);
             $table->string('status');
             $table->timestamps();
