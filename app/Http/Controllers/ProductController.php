@@ -39,6 +39,22 @@ class ProductController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bycategory($category)
+    {
+        $user = Auth::user();
+
+        $products = Product::join('categories', 'products.category_id', '=', 'categories.id')
+                ->where('categories.name', 'like', '%'.$category.'%')
+                ->join('photos', 'products.id', '=', 'photos.product_id')
+                ->paginate(5);
+        return view ('products.bycategory', compact('products', 'category'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

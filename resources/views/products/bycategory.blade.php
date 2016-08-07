@@ -3,7 +3,7 @@
 @section('header_title')
 <div class="container">
 <h1>
-  <i class="fa fa-bullhorn"></i> Meus Anúncios
+  <i class="fa fa-bullhorn"></i> {{$category}}
 </h1>
 <a href="{{route('products.create')}}" class="btn btn-xs btn-flat btn-primary pull-left">
     <i class="fa fa-plus"></i> <b>Anunciar Produto</b>
@@ -28,7 +28,7 @@
             </div>
 
             <div class="box-body no-padding" style="
-                        background-image: url({{ route('images', [$product->photos->first()->path, 170]) }});
+                        background-image: url({{ route('images', [$product->path, 170]) }});
                         background-size: cover;
                         background-repeat: no-repeat;
                         background-position: 50% 50%;
