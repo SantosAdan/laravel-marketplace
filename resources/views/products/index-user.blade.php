@@ -40,7 +40,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-              <span class="label label-info pull-left" style="font-size: 0.8em;"><b>{{ $product->category->name }}</b></span>
+              <a href="{{route('products.bycategory', [$product->category->name])}}"><span class="label label-info pull-left" style="font-size: 0.8em;"><b>{{ $product->category->name }}</b></span></a>
               <span class="pull-right"><b>R$ {{ $product->price }}</b></span>
             </div>
           </div>

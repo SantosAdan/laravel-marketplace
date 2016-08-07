@@ -31,6 +31,14 @@
   <link rel="stylesheet" href="/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
   <!-- Styles -->
+<style type="text/css">
+  .trunc {
+    overflow: hidden !important;
+    text-overflow:ellipsis !important;
+    width: 150px !important;
+    display:inline-block !important;
+  }
+</style>
   @section('specific_styles')
   @show
 
