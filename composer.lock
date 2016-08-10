@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "72ed359f3630cf534b84769fc518cb2e",
-    "content-hash": "294f22ba600928cfec44d0b812358f22",
+    "hash": "5d45ef0acf6a9ca307d5af2b9f3adbf4",
+    "content-hash": "360252064574ae5ec12560a84eb2ebec",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -783,6 +783,60 @@
                 "storage"
             ],
             "time": "2016-06-03 19:11:39"
+        },
+        {
+            "name": "michael/laravelpagseguro",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michaeldouglas/laravel-pagseguro.git",
+                "reference": "915d455ceb123229d3c8c1828e65513fa6a182e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michaeldouglas/laravel-pagseguro/zipball/915d455ceb123229d3c8c1828e65513fa6a182e9",
+                "reference": "915d455ceb123229d3c8c1828e65513fa6a182e9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "illuminate/validation": ">=4.2",
+                "lib-curl": "*",
+                "lib-libxml": "*",
+                "lib-openssl": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "laravel\\pagseguro\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Douglas Barbosa Araujo",
+                    "email": "michaeldouglas010790@gmail.com"
+                },
+                {
+                    "name": "Isaque de Souza Barbosa",
+                    "email": "isaquesb@gmail.com"
+                }
+            ],
+            "description": "Biblioteca de integração com o gateway de pagamento PagSeguro.",
+            "keywords": [
+                "Gateway Pagamento",
+                "Pagseguro",
+                "framework",
+                "laravel"
+            ],
+            "time": "2016-06-09 22:22:26"
         },
         {
             "name": "monolog/monolog",
@@ -3570,9 +3624,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "michael/laravelpagseguro": 20
+    },
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.5.9"
