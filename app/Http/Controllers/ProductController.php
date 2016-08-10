@@ -93,7 +93,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('products.index', compact('product'));
+        return redirect()->route('product.index', compact('product'));
         // return view('products.photos.upload', compact('product'));
     }
 

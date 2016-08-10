@@ -13,16 +13,16 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name'         => 'Usuário Teste',
+            'name'          => 'Usuário Teste',
             'email'         => 'user@user.com',
-            'password' => bcrypt(123456),
-            'photo_url' => 'users/default-avatar.png',
-            'street'       => 'Rua Teste',
+            'password'      => bcrypt(123456),
+            'photo_url'     => 'users/default-avatar.png',
+            'street'        => 'Rua Teste',
             'street_number' => 123,
-            'district' => 'Bairro Fantasma',
-            'city' => 'Cidade X',
-            'state' => 'MG',
-            'zipcode' => 11222333456
+            'district'      => 'Bairro Fantasma',
+            'city'          => 'Cidade X',
+            'state'         => 'MG',
+            'zipcode'       => 11222333456
         ]);
     }
 }

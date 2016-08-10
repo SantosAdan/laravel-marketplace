@@ -39,6 +39,14 @@ Route::group(['middleware' => 'auth' ], function () {
         Route::get('/{category}',['as'=>'products.bycategory', 'uses'=>'ProductController@bycategory']);
     });
 
+    Route::group(['prefix' => 'pedidos'], function () {
+        Route::get('/meus', ['as' => 'orders.myOrders', 'uses' => 'OrderController@getMyOrders']);
+        Route::get('/vendas', ['as' => 'orders.mySales', 'uses' => 'OrderController@getMySales']);
+        Route::get('{orderId}', ['as' => 'orders.show', 'uses' => 'OrderController@show']);
+        Route::get('{productId}/criar', ['as' => 'orders.create', 'uses' => 'OrderController@create']);
+        Route::post('{productId}/salvar', ['as' => 'orders.store', 'uses' => 'OrderController@store']);
+    });
+
     // Images Route
     Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
         $path = storage_path() . '/app/' . $folder . '/' . $image;
