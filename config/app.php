@@ -144,7 +144,7 @@ return [
         Marketplace\Providers\AuthServiceProvider::class,
         Marketplace\Providers\EventServiceProvider::class,
         Marketplace\Providers\RouteServiceProvider::class,
-
+        laravel\pagseguro\Platform\Laravel5\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
@@ -195,11 +195,10 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-
+        'PagSeguro' => laravel\pagseguro\Platform\Laravel5\PagSeguro::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class
-
     ],
 
 ];

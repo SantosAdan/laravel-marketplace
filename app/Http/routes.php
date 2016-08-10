@@ -47,6 +47,19 @@ Route::group(['middleware' => 'auth' ], function () {
         Route::post('{productId}/salvar', ['as' => 'orders.store', 'uses' => 'OrderController@store']);
     });
 
+    Route::group(['prefix' => 'pagseguro'], function () {
+        Route::post('/notification', [
+            'uses' => '\laravel\pagseguro\Platform\Laravel5\NotificationController@notification',
+            'as' => 'pagseguro.notification'
+        ]);
+        Route::post('/return', [
+            'uses' => '\laravel\pagseguro\Platform\Laravel5\NotificationController@redirect',
+            'as' => 'pagseguro.redirect'
+        ]);
+        Route::get('/index', ['as' => 'pagseguro.index', 'uses' => 'PagSeguroController@index']);
+    });
+
+
     // Images Route
     Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
         $path = storage_path() . '/app/' . $folder . '/' . $image;
