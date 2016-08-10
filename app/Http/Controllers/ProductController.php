@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['photos', 'category'])->paginate(5);
+        $products = Product::with(['photos', 'category'])->where('quantity', '>', 0)->paginate(5);
 
         return view ('products.index', compact('products'));
     }
@@ -33,7 +33,7 @@ class ProductController extends Controller
     {
         $user = Auth::user();
 
-        $products = Product::where('user_id', $user->id)->with(['photos', 'category'])->paginate(5);
+        $products = Product::where('user_id', $user->id)->where('quantity', '>', 0)->with(['photos', 'category'])->paginate(5);
 
         return view ('products.index-user', compact('products'));
     }
@@ -49,6 +49,7 @@ class ProductController extends Controller
 
         $products = Product::join('categories', 'products.category_id', '=', 'categories.id')
                 ->where('categories.name', 'like', '%'.$category.'%')
+                ->where('products.quantity', '>', 0)
                 ->join('photos', 'products.id', '=', 'photos.product_id')
                 ->paginate(5);
         return view ('products.bycategory', compact('products', 'category'));
@@ -93,8 +94,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('product.index', compact('product'));
-        // return view('products.photos.upload', compact('product'));
+        return redirect()->route('products.index', compact('product'));
     }
 
     /**

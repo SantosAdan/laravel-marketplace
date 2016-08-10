@@ -6,7 +6,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('product.index') }}">Produtos</a></li>
+        <li><a href="{{ route('products.index') }}">Produtos</a></li>
         <li class="active">Comprando Produto</li>
       </ol>
       </br>
@@ -45,8 +45,8 @@
               <!-- /.box-header -->
               <div class="box-body">
                 <section class="row">
-                  <div class="col-md-4 clearfix">
-                    <img class="attachment-img" src="{{ route('images', [$product->photos->first()->path, 170]) }}" />
+                  <div class="col-md-4">
+                    <img class="attachment-img" src="{{ route('images', [$product->photos->first()->path, 110]) }}" />
                   </div>
                   <div class="col-md-8">
                     <p>Nome: {{ $product->name }}</p>

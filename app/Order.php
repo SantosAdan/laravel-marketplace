@@ -36,4 +36,27 @@ class Order extends Model
         return $this->total / $this->product->price;
 
     }
+
+    // ============================== Accessors ============================
+    public function getStatusAttribute($value)
+    {
+        switch ($value) {
+            case 0:
+                return $this->status = 'Aguardando Pagamento';
+                break;
+            case 1:
+                return $this->status = 'Pagamento Aprovado';
+                break;
+            case 2:
+                return $this->status = 'Em Transporte';
+                break;
+            case 3:
+                return $this->status = 'Entregue';
+                break;
+            case 4:
+                return $this->status = 'Cancelado';
+                break;
+        }
+    }
+    // ================================================================
 }
