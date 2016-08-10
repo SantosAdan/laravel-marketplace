@@ -6,7 +6,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('orders.index') }}"><i class="fa fa-shopping-cart"></i> Meus Pedidos</a></li>
+        <li><a href="{{ route('orders.myOrders') }}"><i class="fa fa-shopping-cart"></i> Meus Pedidos</a></li>
         <li class="active">Pedido #{{ $order->id }}</li>
       </ol>
       </br>
@@ -27,7 +27,7 @@
           <div class="box-body">
             <p>Valor: R$ {{ number_format($order->product->price, 2, ',', '.') }}</p>
             <p>Quantidade: {{ $order->getQuantity() }}</p>
-            <p>Status do pedido: {{ $order->status }}</p>
+            <p>Status do pedido: <span class="label bg-green">{{ $order->status }}</span></p>
             <div class="progress progress-sm active">
               <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
                 <span class="sr-only">33% Complete</span>

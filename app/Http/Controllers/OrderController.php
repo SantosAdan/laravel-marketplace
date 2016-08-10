@@ -40,10 +40,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($productId)
+    public function create(Request $request, $productId)
     {
         $product = Product::findOrFail($productId);
-        $quantity = 2;
+        $quantity = $request['quantity'];
 
         return view('orders.create', compact('product', 'quantity'));
     }
@@ -62,11 +62,16 @@ class OrderController extends Controller
         $inputs['seller_id'] = $product->user->id;
         $inputs['buyer_id'] = Auth::user()->id;
         $inputs['total'] = $product->price * intval($request['quantity']);
-        $inputs['status'] = 'Aguardando Pagamento';
+        $inputs['status'] = 0;
 
         $order = Order::create($inputs);
 
-        return redirect()->route('product.index');
+        if($order) {
+            $product->quantity -= intval($request['quantity']);
+            $product->save();
+        }
+
+        return redirect()->route('orders.show', $order->id);
     }
 
     /**

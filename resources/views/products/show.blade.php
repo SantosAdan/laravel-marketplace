@@ -40,9 +40,16 @@
   </section>
 
   <section class="row" style="margin-top: 2%; margin-left: 1%;">
-    <a href="" class="btn btn-xs btn-flat btn-primary pull-left">
-        <i class="fa fa-money"></i> <b>Comprar Produto</b>
-    </a>
+    <div class="col-md-4">
+      {!! Form::open(['route' => ['orders.create', $product->id], 'method' => 'POST']) !!}
+      <div class="input-group">
+        <input type="number" name="quantity" class="form-control" placeholder="Quantidade">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="submit"><i class="fa fa-money"></i> Comprar</button>
+        </span>
+      </div><!-- /input-group -->
+      {!! Form::close() !!}
+    </div>
   </section>
 
 
