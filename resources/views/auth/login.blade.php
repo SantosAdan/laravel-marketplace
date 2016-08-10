@@ -50,7 +50,7 @@
       {{ csrf_field() }}
 
       <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
-        <input name="email" type="email" class="form-control" placeholder="Email">
+        <input name="email" type="email" class="form-control" placeholder="Email" value="user@user.com">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 
         @if ($errors->has('email'))
@@ -62,7 +62,7 @@
       </div>
 
       <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-        <input name="password" type="password" class="form-control" placeholder="Senha">
+        <input name="password" type="password" class="form-control" placeholder="Senha" value="123456">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 
         @if ($errors->has('password'))

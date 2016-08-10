@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('header_title')
     <h1>
-        <i class="fa fa-shopping-cart fa-2x"></i>
+        <i class="fa ion-android-cart fa-fw fa-2x"></i>
         Meus Pedidos
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-home fa-fw"></i> Home</a></li>
         <li class="active">Meus Pedidos</li>
       </ol>
       </br>
@@ -29,7 +29,7 @@
               <div class="callout callout-info">
                <h4>Você não realizou nenhuma compra ainda.</h4>
 
-               <p><a href="{{ route('product.index') }}">Comece a comprar agora!</a></p>
+               <p><a href="{{ route('products.index') }}">Comece a comprar agora!</a></p>
              </div>
          </div>
          @else
@@ -47,6 +47,9 @@
                       <span class="info-box-text">Preço Unitário: R$ {{ number_format($order->product->price, 2, ',', '.') }}</span>
                       <span class="info-box-text">Quantidade: {{ $order->getQuantity() }}</span>
                       <span class="info-box-text">Vendedor: {{ $order->seller->name }}</span>
+                      <span>
+                        <span class="label bg-green">{{ $order->status }}</span>
+                      </span>
                       <span class="info-box-number pull-right">R$ {{ number_format($order->total, 2, ',', '.') }}</span>
                     </div>
                     <!-- /.info-box-content -->

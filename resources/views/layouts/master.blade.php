@@ -34,9 +34,9 @@
 <style type="text/css">
   .trunc {
     overflow: hidden !important;
-    text-overflow:ellipsis !important;
+    text-overflow: ellipsis !important;
     width: 150px !important;
-    display:inline-block !important;
+    display: inline-block !important;
   }
 </style>
   @section('specific_styles')
@@ -49,7 +49,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini"> <!-- sidebar-collapse || fixed || layout-boxed || layout-top-nav-->
 <div class="wrapper">
 
   @include('layouts.partials.header')

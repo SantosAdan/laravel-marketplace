@@ -12,15 +12,27 @@ use Marketplace\Http\Controllers\Controller;
 class OrderController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the listing of orders where the user is buying.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getMyOrders()
     {
-        $orders = Order::with('buyer', 'seller')->where('buyer_id', Auth::user()->id)->get();
+        $orders = Order::with('buyer', 'seller', 'product')->where('buyer_id', Auth::user()->id)->get();
 
-        return view('orders.index', compact('orders'));
+        return view('orders.myOrders', compact('orders'));
+    }
+
+    /**
+     * Display the listing of orders where the user is selling.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getMySales()
+    {
+        $orders = Order::with('buyer', 'seller', 'product')->where('seller_id', Auth::user()->id)->get();
+
+        return view('orders.mySales', compact('orders'));
     }
 
     /**

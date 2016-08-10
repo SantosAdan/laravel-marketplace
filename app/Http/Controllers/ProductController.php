@@ -21,7 +21,7 @@ class ProductController extends Controller
     {
         $products = Product::with(['photos', 'category'])->paginate(5);
 
-        return view ('products.index-client', compact('products'));
+        return view ('products.index', compact('products'));
     }
 
     /**
