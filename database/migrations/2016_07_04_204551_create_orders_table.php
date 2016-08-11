@@ -28,6 +28,7 @@ class CreateOrdersTable extends Migration
                         ->onUpdate('cascade')->onDelete('cascade');
 
             $table->double('total', 15.2);
+            $table->integer('quantity');
             $table->enum('status', [0, 1, 2, 3, 4]);
             $table->timestamps();
         });

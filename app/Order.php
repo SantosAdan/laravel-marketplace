@@ -16,7 +16,8 @@ class Order extends Model
         'seller_id',
         'buyer_id',
         'total',
-        'status'
+        'status',
+        'quantity'
     ];
 
     public function buyer() {

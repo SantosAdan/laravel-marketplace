@@ -52,8 +52,8 @@ Route::group(['middleware' => 'auth' ], function () {
             'uses' => '\laravel\pagseguro\Platform\Laravel5\NotificationController@notification',
             'as' => 'pagseguro.notification'
         ]);
-        Route::post('/return', [
-            'uses' => '\laravel\pagseguro\Platform\Laravel5\NotificationController@redirect',
+        Route::get('/redirect', [
+            'uses' => 'PagSeguroController@redirect',
             'as' => 'pagseguro.redirect'
         ]);
         Route::get('/index', ['as' => 'pagseguro.index', 'uses' => 'PagSeguroController@index']);

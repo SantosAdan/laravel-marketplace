@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Marketplace\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Marketplace\Http\Controllers\Controller;
+use laravel\pagseguro\Platform\Laravel5\ServiceProvider;
 
 class OrderController extends Controller
 {
@@ -62,6 +63,7 @@ class OrderController extends Controller
         $inputs['seller_id'] = $product->user->id;
         $inputs['buyer_id'] = Auth::user()->id;
         $inputs['total'] = $product->price * intval($request['quantity']);
+        $inputs['quantity'] = $request['quantity'];
         $inputs['status'] = 0;
 
         $order = Order::create($inputs);
@@ -69,6 +71,72 @@ class OrderController extends Controller
         if($order) {
             $product->quantity -= intval($request['quantity']);
             $product->save();
+        }
+
+        $data = [
+                'items' => [
+                     [
+                         'id' => (string)$order->id,
+                         'description' => $order->product->name,
+                         'quantity' => (string)$order->quantity,
+                         'amount' => (string)$order->product->price,
+                          'weight' => '45',
+                            'shippingCost' => '3.5',
+                            'width' => '50',
+                            'height' => '45',
+                            'length' => '60'
+                     ]
+                ],
+                  'shipping' => [
+                    'address' => [
+                        'postalCode' => $order->buyer->zipcode,
+                        'street' => $order->buyer->street,
+                        'number' => $order->buyer->street_number,
+                        'district' => $order->buyer->district,
+                        'city' => $order->buyer->city,
+                        'state' => $order->buyer->state,
+                        'country' => 'BRA'
+                    ],
+                    'cost' => $order->product->price,
+                    'type' => 2,
+                ],
+                'sender' => [
+                    // 'email' => $order->buyer->email,
+                    // 'name' => $order->buyer->name,
+                    // 'documents' => [
+                    //     [
+                    //         'number' => '01234567890',
+                    //         'type' => 'CPF'
+                    //     ]
+                    // ],
+                    // 'phone' => '11985445522',
+                    // 'bornDate' => '1988-03-21',
+                    //  'sender' => [
+                    'email' => 'sender@gmail.com',
+                    'name' => 'Isaque de Souza Barbosa',
+                    'documents' => [
+                        [
+                            'number' => '01234567890',
+                            'type' => 'CPF'
+                        ]
+                    ],
+                    'phone' => '11985445522',
+                    'bornDate' => '1988-03-21',
+                ],
+                'currency' => 'BRL'
+        ];
+
+        $checkout = \PagSeguro::checkout()->createFromArray($data);
+        $credentials = \PagSeguro::credentials()->get();
+        // $information = $checkout->send($credentials); // Retorna um objeto de laravel\pagseguro\Checkout\Information\Information
+        $information = $checkout->send($credentials);
+        dd($information);
+        if ($information) {
+            // dd($information);
+            // print_r($information->getCode());
+            // print_r($information->getDate());
+            $link = $information->getLink();
+            return redirect($link);
         }
 
         return redirect()->route('orders.show', $order->id);
