@@ -11,7 +11,7 @@
 |
 */
 // Authentication routes...
-Route::get('/login', 'Auth\AuthController@getLogin');
+Route::get('/login', ['as' => 'login-form', 'uses' => 'Auth\AuthController@getLogin']);
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'Auth\AuthController@getLogout');
 
@@ -19,16 +19,15 @@ Route::get('/logout', 'Auth\AuthController@getLogout');
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 
-Route::group(['middleware' => 'auth' ], function () {
-    Route::get('/', function () {
-        return view('layouts.master');
-    });
 
+Route::get('/', ['as' => 'products.index', 'uses' => 'ProductController@index']);
+Route::get('/produtos/categoria/{category}',['as'=>'products.bycategory', 'uses'=>'ProductController@bycategory']);
+
+Route::group(['middleware' => 'auth' ], function () {
     Route::get('profile', ['as' => 'user.edit', 'uses' => 'UserController@edit']);
     Route::put('profile', ['as' => 'user.update', 'uses' => 'UserController@update']);
 
     Route::group(['prefix' => 'produtos'], function(){
-        Route::get('/', ['as' => 'products.index', 'uses' => 'ProductController@index']);
         Route::get('/criar',['as'=>'products.create', 'uses'=>'ProductController@create']);
         Route::get('/meusprodutos',['as'=>'products.user', 'uses'=>'ProductController@user_products']);
         Route::get('/{id}/mostrar',['as'=>'products.show', 'uses'=>'ProductController@show']);
@@ -36,7 +35,6 @@ Route::group(['middleware' => 'auth' ], function () {
         Route::get('/{id}/editar',['as'=>'products.edit', 'uses'=>'ProductController@edit']);
         Route::put('/{id}/atualizar', ['as'=>'products.update', 'uses'=>'ProductController@update']);
         Route::post('/{id}/deletar', ['as' => 'products.delete', 'uses' => 'ProductController@destroy']);
-        Route::get('/{category}',['as'=>'products.bycategory', 'uses'=>'ProductController@bycategory']);
     });
 
     Route::group(['prefix' => 'pedidos'], function () {
@@ -48,25 +46,18 @@ Route::group(['middleware' => 'auth' ], function () {
     });
 
     Route::group(['prefix' => 'pagseguro'], function () {
-        Route::post('/notification', [
-            'uses' => '\laravel\pagseguro\Platform\Laravel5\NotificationController@notification',
-            'as' => 'pagseguro.notification'
-        ]);
-        Route::get('/redirect', [
-            'uses' => 'PagSeguroController@redirect',
-            'as' => 'pagseguro.redirect'
-        ]);
+        Route::post('/notification', ['as' => 'pagseguro.notification', 'uses' => '\laravel\pagseguro\Platform\Laravel5\NotificationController@notification']);
+        Route::get('/redirect', ['uses' => 'PagSeguroController@redirect', 'as' => 'pagseguro.redirect']);
         Route::get('/index', ['as' => 'pagseguro.index', 'uses' => 'PagSeguroController@index']);
     });
-
-
-    // Images Route
-    Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
-        $path = storage_path() . '/app/' . $folder . '/' . $image;
-        $img = Image::make($path)->resize(null, $size, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-
-        return $img->response();
-    }]);
 });
+
+// Images Route
+Route::get('/imagens/{folder}/{image?}/{size?}', ['as' => 'images', 'uses' => function($folder, $image, $size) {
+    $path = storage_path() . '/app/' . $folder . '/' . $image;
+    $img = Image::make($path)->resize(null, $size, function ($constraint) {
+        $constraint->aspectRatio();
+    });
+
+    return $img->response();
+}]);

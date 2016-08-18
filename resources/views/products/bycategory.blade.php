@@ -5,9 +5,11 @@
 <h1>
   <i class="fa fa-bullhorn"></i> {{$category}}
 </h1>
+@if(Auth::check())
 <a href="{{route('products.create')}}" class="btn btn-xs btn-flat btn-primary pull-left">
     <i class="fa fa-plus"></i> <b>Anunciar Produto</b>
 </a>
+@endif
 </div>
 <ol class="breadcrumb">
   <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -28,7 +30,7 @@
             </div>
 
             <div class="box-body no-padding" style="
-                        background-image: url({{ route('images', [$product->path, 170]) }});
+                        background-image: url({{ route('images', [$product->photos->first()->path, 170]) }});
                         background-size: cover;
                         background-repeat: no-repeat;
                         background-position: 50% 50%;
@@ -37,7 +39,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-              <a href="{{route('products.bycategory', [$product->category->name])}}"><span class="label label-info pull-left" style="font-size: 0.8em;"><b>{{ $product->category->name }}</b></span></a>
+              <a href="{{ route('products.bycategory', [$product->category->name]) }}"><span class="label label-info pull-left" style="font-size: 0.8em;"><b>{{ $product->category->name }}</b></span></a>
               <span class="pull-right"><b>R$ {{ $product->price }}</b></span>
             </div>
           </div>

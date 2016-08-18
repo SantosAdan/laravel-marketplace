@@ -91,11 +91,11 @@ class PagSeguroController extends Controller
     {
         $id_pagseguro = $_GET['id_pagseguro'];
         $code = str_replace('-', '',$id_pagseguro);
-        // dd($code);
         $credentials = \PagSeguro::credentials()->get();
         $transaction = \PagSeguro::transaction()->get($code, $credentials);
         $information = $transaction->getInformation();
-        dd($information);
+
+        return redirect($information->link);
     }
 
     /**

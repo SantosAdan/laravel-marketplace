@@ -47,11 +47,16 @@ class ProductController extends Controller
     {
         $user = Auth::user();
 
-        $products = Product::join('categories', 'products.category_id', '=', 'categories.id')
-                ->where('categories.name', 'like', '%'.$category.'%')
-                ->where('products.quantity', '>', 0)
-                ->join('photos', 'products.id', '=', 'photos.product_id')
-                ->paginate(5);
+        // $products = Product::join('categories', 'products.category_id', '=', 'categories.id')
+        //         ->where('categories.name', 'like', '%'.$category.'%')
+        //         ->where('products.quantity', '>', 0)
+        //         ->join('photos', 'products.id', '=', 'photos.product_id')
+        //         ->select(['products.*'])
+        //         ->paginate(5);
+
+        $cat = Category::where('name', 'like', '%'.$category.'%')->first();
+        $products = Product::where('category_id', $cat->id)->where('quantity', '>', 0)->paginate(5);
+
         return view ('products.bycategory', compact('products', 'category'));
     }
 
