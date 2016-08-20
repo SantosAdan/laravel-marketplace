@@ -3,14 +3,18 @@
 @section('header_title')
 <div class="container">
 <h1>
-  <i class="fa fa-bullhorn"></i> Meus Anúncios
+  {{-- <i class="fa fa-bullhorn"></i> Anúncios --}}
 </h1>
-<a href="{{route('products.create')}}" class="btn btn-xs btn-flat btn-primary pull-left">
-    <i class="fa fa-plus"></i> <b>Anunciar Produto</b>
-</a>
+
+<div class="col-md-5 col-md-offset-3 col-xs-12">
+  <a href="{{route('products.create')}}" class="btn btn-block btn-flat btn-primary">
+      <i class="fa fa-plus"></i> <b>Anunciar Produto</b>
+  </a>
+</div>
+
 </div>
 <ol class="breadcrumb">
-  <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+  <li><a href="#"><i class="fa fa-dashboard"></i> Produtos</a></li>
   <li class="active">Anúncios</li>
 </ol>
 @stop

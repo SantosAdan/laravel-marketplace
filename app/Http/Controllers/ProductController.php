@@ -33,7 +33,7 @@ class ProductController extends Controller
     {
         $user = Auth::user();
 
-        $products = Product::where('user_id', $user->id)->where('quantity', '>', 0)->with(['photos', 'category'])->paginate(5);
+        $products = Product::where('user_id', $user->id)->with(['photos', 'category'])->paginate(5);
 
         return view ('products.index-user', compact('products'));
     }
@@ -47,11 +47,16 @@ class ProductController extends Controller
     {
         $user = Auth::user();
 
-        $products = Product::join('categories', 'products.category_id', '=', 'categories.id')
-                ->where('categories.name', 'like', '%'.$category.'%')
-                ->where('products.quantity', '>', 0)
-                ->join('photos', 'products.id', '=', 'photos.product_id')
-                ->paginate(5);
+        // $products = Product::join('categories', 'products.category_id', '=', 'categories.id')
+        //         ->where('categories.name', 'like', '%'.$category.'%')
+        //         ->where('products.quantity', '>', 0)
+        //         ->join('photos', 'products.id', '=', 'photos.product_id')
+        //         ->select(['products.*'])
+        //         ->paginate(5);
+
+        $cat = Category::where('name', 'like', '%'.$category.'%')->first();
+        $products = Product::where('category_id', $cat->id)->where('quantity', '>', 0)->paginate(5);
+
         return view ('products.bycategory', compact('products', 'category'));
     }
 
@@ -122,7 +127,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $categories = Category::all();
 
-        return view ('products.edit')->with(compact('product', 'categories'));
+        return view('products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -157,5 +162,17 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.user');
+    }
+
+    public function addPhoto(Request $request, $productId)
+    {
+        $file = $request->file('file');
+
+        $photo = Photo::create([
+            'product_id' => $productId,
+            'path' => ''
+        ]);
+        $photo->path = $photo->uploadImage($file, 'products/');
+        $photo->save();
     }
 }

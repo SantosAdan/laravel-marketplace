@@ -69,7 +69,7 @@ class OrderController extends Controller
         $order = Order::create($inputs);
 
         if($order) {
-            $product->quantity -= intval($request['quantity']);
+            $product->quantity -= $request['quantity'];
             $product->save();
         }
 
@@ -97,23 +97,14 @@ class OrderController extends Controller
                         'state' => $order->buyer->state,
                         'country' => 'BRA'
                     ],
-                    'cost' => $order->product->price,
-                    'type' => 2,
+                    'cost' => null,
+                    'type' => 1,
                 ],
                 'sender' => [
-                    // 'email' => $order->buyer->email,
-                    // 'name' => $order->buyer->name,
-                    // 'documents' => [
-                    //     [
-                    //         'number' => '01234567890',
-                    //         'type' => 'CPF'
-                    //     ]
-                    // ],
-                    // 'phone' => '11985445522',
-                    // 'bornDate' => '1988-03-21',
-                    //  'sender' => [
-                    'email' => 'sender@gmail.com',
-                    'name' => 'Isaque de Souza Barbosa',
+                    'email' => $order->buyer->email,
+                    'name' => $order->buyer->name,
+                    // 'email' => 'sender@gmail.com',
+                    // 'name' => 'Isaque de Souza Barbosa',
                     'documents' => [
                         [
                             'number' => '01234567890',
@@ -128,9 +119,9 @@ class OrderController extends Controller
 
         $checkout = \PagSeguro::checkout()->createFromArray($data);
         $credentials = \PagSeguro::credentials()->get();
-        // $information = $checkout->send($credentials); // Retorna um objeto de laravel\pagseguro\Checkout\Information\Information
-        $information = $checkout->send($credentials);
-        dd($information);
+
+        $information = $checkout->send($credentials); // Retorna um objeto de laravel\pagseguro\Checkout\Information\Information
+
         if ($information) {
             // dd($information);
             // print_r($information->getCode());

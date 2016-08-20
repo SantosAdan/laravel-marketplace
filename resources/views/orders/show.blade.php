@@ -25,17 +25,17 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <p>Valor: R$ {{ number_format($order->product->price, 2, ',', '.') }}</p>
-            <p>Quantidade: {{ $order->getQuantity() }}</p>
+            <p>Valor: R$ {{ number_format($order->total/$order->quantity, 2, ',', '.') }}</p>
+            <p>Quantidade: {{ $order->quantity }}</p>
             <p>Status do pedido: <span class="label bg-green">{{ $order->status }}</span></p>
             <div class="progress progress-sm active">
               <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
                 <span class="sr-only">33% Complete</span>
               </div>
             </div>
-            {{-- <h4>Descrição</h4>
+            <h4>Descrição do Produto</h4>
             <hr>
-            <div>{!! $order->product->description !!}</div> --}}
+            <div>{!! $order->product->description !!}</div>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">

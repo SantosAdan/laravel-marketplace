@@ -43,17 +43,17 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        if($request->hasFile('photo_url')) {
-            $file = $request->file('photo_url');
-            $user->photo_url = $user->uploadImage($file, 'users/');
-        }
-
         if($request['password'])
             $user->password = bcrypt($request['password']);
 
         $inputs = $request->except('password', 'password_confirmation');
-
         $user->fill($inputs);
+
+        if($request->file('photo_url')) {
+            $file = $request->file('photo_url');
+            $user->photo_url = $user->uploadImage($file, 'users/');
+        }
+
         $user->save();
 
         return redirect()->route('user.edit');

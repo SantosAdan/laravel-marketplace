@@ -37,7 +37,14 @@
               <a href="{{ route('orders.show', $order->id) }}">
                 <div class="col-md-12 col-sm-6 col-xs-12">
                   <div class="info-box" style="min-height: 120px !important;">
-                    <span class="info-box-icon bg-aqua info-box-icon-img"><img src="{{ route('images', [$order->product->photos->first()->path, 120])}}"></span>
+                    <span class="info-box-icon bg-aqua info-box-icon-img" style="
+                          background-image: url({{ route('images', [$order->product->photos->first()->path, 120]) }});
+                          background-size: cover;
+                          background-repeat: no-repeat;
+                          background-position: 50% 50%;
+                          min-height: 120px;">
+                      {{-- <img src="{{ route('images', [$order->product->photos->first()->path, 120])}}" > --}}
+                    </span>
 
                     <div class="info-box-content" style="margin-left: 120px !important;">
                       <span class="info-box-text pull-right">
