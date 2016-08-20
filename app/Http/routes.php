@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth' ], function () {
         Route::get('/{id}/editar',['as'=>'products.edit', 'uses'=>'ProductController@edit']);
         Route::put('/{id}/atualizar', ['as'=>'products.update', 'uses'=>'ProductController@update']);
         Route::post('/{id}/deletar', ['as' => 'products.delete', 'uses' => 'ProductController@destroy']);
+        Route::post('/{id}/adicionar-foto', ['as' => 'products.addPhoto', 'uses' => 'ProductController@addPhoto']);
     });
 
     Route::group(['prefix' => 'pedidos'], function () {

@@ -24,7 +24,7 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-6 col-xs-12" style="background-color: white;">
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           @foreach($photos as $key => $photo)

@@ -69,7 +69,7 @@
   <!-- /.content-wrapper -->
   @include('layouts.partials.footer')
 
-  @include('layouts.partials.control-sidebar')
+  {{-- @include('layouts.partials.control-sidebar') --}}
 
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
@@ -113,11 +113,14 @@
 <!-- AdminLTE App -->
 <script src="/adminlte/dist/js/app.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="/adminlte/dist/js/pages/dashboard.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/adminlte/dist/js/demo.js"></script>
+{{-- <script src="/adminlte/dist/js/pages/dashboard.js"></script>
+AdminLTE for demo purposes
+<script src="/adminlte/dist/js/demo.js"></script> --}}
 
 @section('specific_scripts')
+@show
+
+@section('inline_scripts')
 @show
 
 </body>

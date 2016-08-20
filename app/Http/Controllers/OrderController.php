@@ -98,22 +98,13 @@ class OrderController extends Controller
                         'country' => 'BRA'
                     ],
                     'cost' => null,
-                    'type' => 3,
+                    'type' => 1,
                 ],
                 'sender' => [
-                    // 'email' => $order->buyer->email,
-                    // 'name' => $order->buyer->name,
-                    // 'documents' => [
-                    //     [
-                    //         'number' => '01234567890',
-                    //         'type' => 'CPF'
-                    //     ]
-                    // ],
-                    // 'phone' => '11985445522',
-                    // 'bornDate' => '1988-03-21',
-                    //  'sender' => [
-                    'email' => 'sender@gmail.com',
-                    'name' => 'Isaque de Souza Barbosa',
+                    'email' => $order->buyer->email,
+                    'name' => $order->buyer->name,
+                    // 'email' => 'sender@gmail.com',
+                    // 'name' => 'Isaque de Souza Barbosa',
                     'documents' => [
                         [
                             'number' => '01234567890',
@@ -128,8 +119,8 @@ class OrderController extends Controller
 
         $checkout = \PagSeguro::checkout()->createFromArray($data);
         $credentials = \PagSeguro::credentials()->get();
-        // $information = $checkout->send($credentials); // Retorna um objeto de laravel\pagseguro\Checkout\Information\Information
-        $information = $checkout->send($credentials);
+
+        $information = $checkout->send($credentials); // Retorna um objeto de laravel\pagseguro\Checkout\Information\Information
 
         if ($information) {
             // dd($information);
